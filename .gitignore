@@ -60,5 +60,4 @@ yarn-debug.log*
 yarn-error.log*
 
 #pack
-.pack
-.eslintcache
+/src/main/mall/node_modules
