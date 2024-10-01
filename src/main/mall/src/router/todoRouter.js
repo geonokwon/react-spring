@@ -10,6 +10,8 @@ const Loading = <div>Loading....</div>
 //Todo 의 하위 페이지
 const TodoList = lazy(() => import("../pages/todo/ListPage"));
 const TodoRead = lazy(() => import("../pages/todo/ReadPage"));
+const TodoAdd = lazy(() => import("../pages/todo/AddPage"));
+const TodoModify = lazy(() => import("../pages/todo/ModifyPage"));
 
 const todoRouter = () => {
   return [
@@ -18,10 +20,19 @@ const todoRouter = () => {
       element: <Suspense fallback={Loading}><TodoList /></Suspense>
     },
     {
+      path: "add",
+      element: <Suspense fallback={Loading}><TodoAdd /></Suspense>
+
+    },
+    {
       //URL Params 특정한 번호의 Todo를 조회할 경우 '/todo/read/33' 과같은 경로로 이동하는 방식
       //경로에 필요한 데이터가 있을때 ':' 을 활용
       path: "read/:tno",
       element: <Suspense fallback={Loading}><TodoRead /></Suspense>,
+    },
+    {
+      path: "modify",
+      element: <Suspense fallback={Loading}><TodoModify /></Suspense>
     },
 
     {

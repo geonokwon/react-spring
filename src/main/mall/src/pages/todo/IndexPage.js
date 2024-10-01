@@ -2,7 +2,7 @@ import {Outlet, useNavigate} from "react-router-dom";
 import BasicLayout from "../../layouts/BasicLayout";
 import {useCallback} from "react";
 
-const indexPage = () => {
+const IndexPage = () => {
   //React-router 를 이용해서 고정된 링크로 이동할 때도 있지만, 대부분 상황에따라 동적으로 데이터를 처리해서 이동하는 경우가 더많음
   //이럴때는 <Navigate>나 <Link> 대신 useNavigate() 를 이용해서 해결
   const navigate = useNavigate();
@@ -30,4 +30,4 @@ const indexPage = () => {
     </BasicLayout>
   )
 }
-export default indexPage;
+export default IndexPage;
