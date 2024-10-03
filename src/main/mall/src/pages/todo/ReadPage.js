@@ -1,10 +1,12 @@
 import {createSearchParams, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useCallback} from "react";
+import ReadComponent from "../../components/todo/ReadComponent";
 
 const ReadPage = () => {
   //특정 번호의 경로를 사용하는 useParams 를 이용해서 지정된 변수를 추출할 수 있음.
   const {tno} = useParams();
 
+  /* useCustomMove() 에서 처리하므로 navigate 로 처리할 필요가 없어짐!
   //수정/삭제가 가능 한 /todo/modify/번호 경로로 이동할 수 있는 기능 추가
   const navigate = useNavigate();
   //쿼리 스트링도 함께 가지고 가야하는데 그렇지 못하다 useSearchParams 를 이용해 데이터 확인하고
@@ -29,15 +31,14 @@ const ReadPage = () => {
       search: queryStr
     })
   }, [page, size]);
+  */
 
   return (
-    <div className="text-3xl font-extrabold">
-      Todo Read Page Component {tno}
-      <div>
-        <button onClick={() => moveToModify(33)}>Test Modify</button>
-        
-        <button onClick={() => moveToList(33)}>Test List</button>
+    <div className="font-extrabold w-full bg-white mt-6">
+      <div className="text-2xl">
+        Todo Read Page Component {tno}
       </div>
+      <ReadComponent tno={tno}/>
     </div>
   )
 }

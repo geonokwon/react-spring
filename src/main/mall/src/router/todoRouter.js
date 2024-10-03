@@ -31,7 +31,7 @@ const todoRouter = () => {
       element: <Suspense fallback={Loading}><TodoRead /></Suspense>,
     },
     {
-      path: "modify",
+      path: "modify/:tno",
       element: <Suspense fallback={Loading}><TodoModify /></Suspense>
     },
 
