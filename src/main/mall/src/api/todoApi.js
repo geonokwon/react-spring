@@ -16,3 +16,9 @@ export const getList = async (pageParam) => {
   }})
   return res.data;
 }
+
+//등록페이지 Axios 함수
+export const postAdd = async (todoObj) => {
+  const res = await axios.post(`${prefix}/`, todoObj);
+  return res.data
+}

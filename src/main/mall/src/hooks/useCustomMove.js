@@ -22,20 +22,22 @@ const useCustomMove = () => {
 
   const queryDefault = createSearchParams({page, size}).toString();
 
+  //List Page 의 목록 불러오기
   const moveToList = (pageParam) => {
     let queryStr = "";
 
     if (pageParam){
       const pageNum = getNum(pageParam.page, 1);
       const sizeNum = getNum(pageParam.size, 10);
-      queryStr = createSearchParams({page:pageNum, size:sizeNum}).toString();
+      queryStr = createSearchParams({page: pageNum, size: sizeNum}).toString();
     }
     else {
       queryStr = queryDefault;
     }
-    // navigate({pathname: `../list`, search: queryStr});
+    navigate({pathname: `../list`, search: queryStr});
     setRefresh(!refresh);
   }
+
   const moveToModify = (num) => {
     console.log(queryDefault);
 
@@ -44,7 +46,20 @@ const useCustomMove = () => {
       search: queryDefault //수정시에 기존의 쿼리 스트링 유지를 위해
     })
   }
-  return {moveToList, moveToModify, page, size, refresh} //moveToList, moveToModify
+
+  //리스트의 목록을 클릭시 읽기 페이지 이동
+  const moveToRead = (num) => {
+
+    console.log(queryDefault);
+
+    navigate({
+      pathname: `../read/${num}`,
+      search: queryDefault
+    });
+
+  }
+
+  return {moveToList, moveToModify, moveToRead, page, size, refresh} //moveToList, moveToModify
 }
 
 export default useCustomMove;
