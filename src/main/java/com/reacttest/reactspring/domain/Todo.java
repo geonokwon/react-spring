@@ -20,14 +20,14 @@ public class Todo {
 
     private String title;
     private String writer;
-    private boolean completed;
+    private boolean complete;
     private LocalDate dueDate;
 
     public void changeTitle(String title){
         this.title = title;
     }
     public void changeComplete(boolean completed){
-        this.completed = completed;
+        this.complete = completed;
     }
     public void changeDueDate(LocalDate dueDate){
         this.dueDate = dueDate;
