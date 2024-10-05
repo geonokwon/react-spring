@@ -1,7 +1,7 @@
 package com.reacttest.reactspring.repository;
 
-import com.reacttest.reactspring.domain.PageRequestDTO;
-import com.reacttest.reactspring.domain.PageResponseDTO;
+import com.reacttest.reactspring.dto.PageRequestDTO;
+import com.reacttest.reactspring.dto.PageResponseDTO;
 import com.reacttest.reactspring.domain.Todo;
 import com.reacttest.reactspring.dto.TodoDTO;
 import com.reacttest.reactspring.service.TodoService;

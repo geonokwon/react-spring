@@ -1,4 +1,4 @@
-package com.reacttest.reactspring.domain;
+package com.reacttest.reactspring.dto;
 
 import lombok.Builder;
 import lombok.Data;
