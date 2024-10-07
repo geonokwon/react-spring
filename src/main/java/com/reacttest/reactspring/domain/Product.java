@@ -18,7 +18,6 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pno;
-
     private String pname;
     private int price;
     private String pdesc;

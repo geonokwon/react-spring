@@ -5,9 +5,14 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -75,6 +80,37 @@ public class ProductRepositoryTest {
     }
 
 
+    @Test
+    public void testUpdate() {
+        Long pno = 11L;
 
+        Optional<Product> product = productRepository.selectOne(pno);
+
+        product.get().changeName("11번 상품");
+        product.get().changeDesc("11번 상품입니다.");
+        product.get().changePrice(5000);
+//        product.changeName("10번 상품");
+//        product.changeDesc("10번 상품입니다.");
+//        product.changePrice(5000);
+
+        //첨부파일수정(기존이미지 삭제(clearList())
+        product.get().clearList();
+
+        product.get().addImageString(UUID.randomUUID().toString() + "_" + "NEWIMAGE1.jpg");
+        product.get().addImageString(UUID.randomUUID().toString() + "_" + "NEWIMAGE2.jpg");
+        product.get().addImageString(UUID.randomUUID().toString() + "_" + "NEWIMAGE3.jpg");
+
+        productRepository.save(product.orElseThrow());
+    }
+
+    @Test
+    public void testList(){
+        //상품과 상품 이미지 0번 대표이미지를 배열로 반환
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("pno").descending());
+
+        Page<Object[]> result = productRepository.selectList(pageable);
+
+        result.getContent().forEach(arr -> log.info(Arrays.toString(arr)));
+    }
 
 }
