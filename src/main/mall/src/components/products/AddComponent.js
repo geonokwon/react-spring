@@ -2,6 +2,8 @@
 import {useRef, useState} from "react";
 import {postAdd} from "../../api/productsApi";
 import FetchingModal from "../common/FetchingModal";
+import ResultModal from "../common/ResultModal";
+import useCustomMove from "../../hooks/useCustomMove";
 
 const initState = {
   pname: "",
@@ -16,7 +18,11 @@ const AddComponent = () => {
   const uploadRef = useRef()
 
   //등록중 지연시간 때 모여줄 모달을 useState 로 관리해서 데이터를 저장완료하면 사라지게 만듬!
-  const[fetching, setFetching] = useState(false);
+  const [fetching, setFetching] = useState(false);
+  //등록/수정/삭제 의경우 처리 결과를 보여줄 모달
+  const [result, setResult] = useState(null);
+  //이동을 위한 함수
+  const {moveToList} = useCustomMove()
 
   const handleChangeProduct = (e) => {
     product[e.target.name] = e.target.value
@@ -40,14 +46,27 @@ const AddComponent = () => {
 
     setFetching(true)
 
-    postAdd(formData).then(data => {
+    postAdd(formData).then(response => {
+      console.log(response)
       setFetching(false)
+      //반환 객체 Result 에 담아서 등록 완료 모달 보여주기
+      setResult(response.data.result)
     })
+  }
+
+  const closeModal = () => {
+    setResult(null);
+    //모달창 닫히면 리스트 페이지로 이동
+    moveToList({page:1})
   }
 
   return(
     <div className="border-2 border-sky-200 mt-10 m-2 p-4">
       {fetching ? <FetchingModal/> : <></>}
+      {result ? <ResultModal title={'Product Add Result'}
+                             content={`${result}번 등록 완료`}
+                             callbackFn={closeModal} /> : <></>
+      }
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">

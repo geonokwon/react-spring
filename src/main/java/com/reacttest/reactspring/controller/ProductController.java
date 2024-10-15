@@ -36,7 +36,7 @@ public class ProductController {
 
     //등록기능 구현 POST 방식 사용 업로드 처리시 업로드된 파일의 숫자만큼 새로운 파일을 upload 폴더에 저장
     @PostMapping("/")
-    public Map<String, String> register(ProductDTO productDTO) {
+    public Map<String, Long> register(ProductDTO productDTO) {
         log.info("register: " + productDTO);
 
         List<MultipartFile> files = productDTO.getFiles();
@@ -49,7 +49,7 @@ public class ProductController {
         //서비스 호출
         Long pno = productService.register(productDTO);
 
-        return Map.of("RESULT", "SUCCESS");
+        return Map.of("result", pno);
     }
 
     @GetMapping("/view/{fileName}")
