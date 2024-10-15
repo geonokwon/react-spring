@@ -1,5 +1,7 @@
 //상품의 AddComponent
 import {useRef, useState} from "react";
+import {postAdd} from "../../api/productsApi";
+import FetchingModal from "../common/FetchingModal";
 
 const initState = {
   pname: "",
@@ -12,6 +14,9 @@ const AddComponent = () => {
 
   const [product, setProduct] = useState({...initState})
   const uploadRef = useRef()
+
+  //등록중 지연시간 때 모여줄 모달을 useState 로 관리해서 데이터를 저장완료하면 사라지게 만듬!
+  const[fetching, setFetching] = useState(false);
 
   const handleChangeProduct = (e) => {
     product[e.target.name] = e.target.value
@@ -33,11 +38,16 @@ const AddComponent = () => {
 
     console.log(formData)
 
+    setFetching(true)
+
+    postAdd(formData).then(data => {
+      setFetching(false)
+    })
   }
 
   return(
     <div className="border-2 border-sky-200 mt-10 m-2 p-4">
-
+      {fetching ? <FetchingModal/> : <></>}
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">
